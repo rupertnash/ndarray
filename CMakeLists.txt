@@ -1,16 +1,17 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(rwn_ndarray VERSION 0.1.0 LANGUAGES CXX)
+project(rwn_ndarray VERSION 0.1.1 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
 option(NDARRAY_TESTS "Build tests" OFF)
 
-add_library(${PROJECT_NAME} INTERFACE)
+add_library(ndarray INTERFACE)
+add_library(rwn::ndarray ALIAS ndarray)
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
+target_compile_features(ndarray INTERFACE cxx_std_11)
 target_include_directories(
-  ${PROJECT_NAME}
+  ndarray
   INTERFACE
   $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
@@ -36,7 +37,7 @@ configure_package_config_file(
 
 # Install bits
 install(
-  TARGETS ${PROJECT_NAME}
+  TARGETS ndarray
   EXPORT ${PROJECT_NAME}_Targets
   )
 

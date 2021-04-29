@@ -15,7 +15,7 @@ enable_testing()
 
 add_executable(tests test.cpp)
 target_link_libraries(
-  tests ${PROJECT_NAME} Catch2::Catch2
+  tests rwn::ndarray Catch2::Catch2
   )
 
 add_test(
