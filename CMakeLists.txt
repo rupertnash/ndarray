@@ -21,18 +21,22 @@ if (NDARRAY_TESTS)
   add_subdirectory(tests)
 endif()
 
-# Do CMake pacakge basics
+# Do CMake package basics
+set(CONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}")
+
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${PROJECT_NAME}ConfigVersion.cmake"
   VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion
   )
 
+set(ROOT_DIR "")
+set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}")
 configure_package_config_file(
   "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  INSTALL_DESTINATION
-  ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+  INSTALL_DESTINATION ${CONFIG_DIR}
+  PATH_VARS ROOT_DIR INCLUDE_INSTALL_DIR
   )
 
 # Install bits
@@ -45,14 +49,14 @@ install(
   EXPORT ${PROJECT_NAME}_Targets
   FILE ${PROJECT_NAME}Targets.cmake
   NAMESPACE rwn::
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+  DESTINATION ${CONFIG_DIR}
   )
 
 install(
   FILES
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+  DESTINATION ${CONFIG_DIR}
   )
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)

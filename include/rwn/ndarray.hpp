@@ -40,7 +40,7 @@ private:
 
 public:
   ndarray() = default;
-  ndarray(const index_type &xs) : m_dims{xs} { init(); }
+  explicit ndarray(const index_type &xs) : m_dims{xs} { init(); }
   ndarray(const index_type &xs, const T &val) : ndarray(xs) {
     std::fill(m_data.get(), m_data.get() + m_size, val);
   }
@@ -58,7 +58,7 @@ public:
     if (m_size != src.m_size) {
       // If sizes differ, copy construct and swap
       ndarray tmp{src};
-      swap(*this, tmp);
+      std::swap(*this, tmp);
     } else {
       // Same size, don't 
       for (int i = 0; i < NDIMS; ++i) {

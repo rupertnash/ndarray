@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+
+set_and_check(rwn_ndarray_DIR "@PACKAGE_ROOT_DIR@")
+set_and_check(rwn_ndarray_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+
+include("${CMAKE_CURRENT_LIST_DIR}/rwn_ndarrayTargets.cmake")
