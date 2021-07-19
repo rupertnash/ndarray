@@ -32,7 +32,7 @@ private:
   void init() {
     m_strides[NDIMS - 1] = 1;
     for (int i = int(NDIMS) - 2; i >= 0; --i) {
-      m_strides[i] = m_strides[i + i] * m_dims[i + 1];
+      m_strides[i] = m_strides[i + 1] * m_dims[i + 1];
     }
     m_size = m_strides[0] * m_dims[0];
     m_data = std::unique_ptr<T[]>(new T[m_size]);
